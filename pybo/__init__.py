@@ -1,8 +1,11 @@
+from multiprocessing.connection import answer_challenge
+
 from flask import Flask
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
 
 import config
+
 
 db = SQLAlchemy()
 migrate = Migrate()
@@ -21,7 +24,11 @@ def create_app():
 
 
 #블루 프린트 등록
-    from .views import main_views
+    from .views import main_views, question_views, answer_views
     app.register_blueprint(main_views.bp)
+    app.register_blueprint(question_views.bp)
+    app.register_blueprint(answer_views.bp)
+
+
 
     return app

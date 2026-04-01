@@ -1,19 +1,10 @@
-from flask import Blueprint
+from flask import Blueprint, url_for, redirect
+
+from pybo.models import Question
 
 bp = Blueprint('main', __name__, url_prefix='/')
 
+# 컨트롤 + 스페이스바 임포트 추가 후 자동으로 불러 와서 추후 추가문 작성
 @bp.route('/')
 def index():
-    return 'Pybo index!'
-
-@bp.route('/hello')
-def hello_world():
-    return 'Hello pybo!'
-
-@bp.route('/login')
-def login():
-    return '로그인 페이지 입니다.'
-
-@bp.route('/logout')
-def logout():
-    return '로그아웃 페이지 입니다.'
+    return redirect(url_for('question._list'))
