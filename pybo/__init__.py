@@ -6,10 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 
 import config
 
-
 db = SQLAlchemy()
 migrate = Migrate()
-
 
 def create_app():
     app = Flask(__name__)
@@ -20,15 +18,14 @@ def create_app():
     migrate.init_app(app, db)
     from . import models
 
-
-
-
 #블루 프린트 등록
     from .views import main_views, question_views, answer_views
     app.register_blueprint(main_views.bp)
     app.register_blueprint(question_views.bp)
     app.register_blueprint(answer_views.bp)
 
-
+# 필터 등록
+    from .filter import format_datetime
+    app.jinja_env.filters['datetime'] = format_datetime
 
     return app
